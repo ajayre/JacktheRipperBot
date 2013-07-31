@@ -1,0 +1,15 @@
+POLOLU MAESTRO
+--------------
+
+1. Download and install the Maestro control software from the link on this page: http://www.pololu.com/docs/0J40/3.a
+
+2. Start the software.
+
+3. Connect the pivot servo to channel 0, Yaxis servo to channel 1 and toolhead servo to channel 2.
+
+4. Under the Serial Settings tab choose "USB Dual Port". Uncheck "Enable CRC". Check "Never sleep".
+
+5. Click on Apply Settings
+
+6. Under the Status tab enable the channels and determine the minimum and maximum values for motion for each of the servos.
+
