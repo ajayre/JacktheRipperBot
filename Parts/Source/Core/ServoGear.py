@@ -3,9 +3,9 @@
 PressureAngle = 20
 Thickness = 3
 
-# input = 15 teeth, 12mm diameter
-InputTeeth = 20
-InputDiameter = 16
+# input = 20 teeth, 16mm diameter
+InputTeeth = 22
+InputDiameter = 17.6
 
 ServoGear = Part("Servo Gear")
 
