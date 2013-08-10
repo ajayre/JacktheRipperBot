@@ -9,7 +9,10 @@ using System.Web;
 
 // Examples:
 // http://192.168.1.70:9090/botapi/?command=loaddisc
-// http://192.168.1.70:9090/botapi/?command=config&toolheadgrab=1000&toolheadrelease=1600
+
+// run on command line using:
+// mono ./Botserver.exe
+// mono ./Botserver.exe myconfig.xml
 
 namespace BotServer
 {
@@ -24,10 +27,22 @@ namespace BotServer
         private const int Port = 9090;
 
         private static WebServer Server;
-        private static Bot Bot = new Bot();
+        private static Bot Bot;
+        private static Configuration Config;
 
         static void Main(string[] args)
         {
+            Config = new Configuration();
+
+            // if config file specified then load it
+            if (args.Length == 1)
+            {
+                Config.Load(args[0]);
+            }
+
+            // create bot
+            Bot = new Bot(Config);
+            
             // start listening for HTTP requests
             Server = new WebServer(ServerResponse, String.Format("http://+:{0}/botapi/", Port));
             Server.Run();
@@ -64,8 +79,8 @@ namespace BotServer
                         Bot.UnloadDisc();
                         break;
 
-                    case "config":
-                        Bot.Configure(Parameters);
+                    case "test":
+                        Bot.Test();
                         break;
 
                     case "home":
