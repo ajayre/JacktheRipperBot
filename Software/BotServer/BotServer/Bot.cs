@@ -5,35 +5,44 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace BotServer
 {
     internal class Bot
     {
         // default servo positions in microseconds
-        private int ToolheadGrabPosition = 1010;
-        private int ToolheadReleasePosition = 1600;
-        // time for toolhead to move in milliseconds
-        private int ToolheadActuationTime = 1000;
+        // get these values from the Maestro Control Center application
+        private int ToolheadGrab = 1265;
+        private int ToolheadRelease = 1435;
+        private int YAxisDown = 962;
+        private int YAxisStop = 950;
+        private int YAxisUp = 935;
+        private int PivotInTray = 2507;
+        private int PivotDrive = 2168;
+        private int PivotOutTray = 1823;
+
+        // maximum time for toolhead to complete a move, in milliseconds
+        private const int MAX_TOOLHEAD_MOVE_TIME = 5000;
+        // maximum time for pivot to complete a move
+        private const int MAX_PIVOT_MOVE_TIME = 15000;
+        // time it takes to lower disc to drive tray
+        private const int YAXIS_LOWER_TO_DRIVE_TIME = 4000;
+        // time to allow pivot motion to settle
+        private const int PIVOT_SETTLE_TIME = 1000;
 
         private ServoController Controller = new ServoController();
-
-        /// <summary>
-        /// Servo channel assignments
-        /// </summary>
-        private enum ServoChannels : byte
-        {
-            Pivot = 0,
-            YAxis = 1,
-            Toolhead = 2
-        }
 
         public Bot
             (
             )
         {
             // connect to the controller
-            Controller.Connect(@"/dev/ttyACM0");
+            Controller.Connect(@"/dev/ttyACM1");
+
+            // configure channels
+            Controller.SetSpeed(ServoChannels.Pivot, 6);
+            Controller.SetAcceleration(ServoChannels.Pivot, 1);
         }
 
         /// <summary>
@@ -46,7 +55,7 @@ namespace BotServer
         {
             Console.WriteLine("Unload disc");
 
-            LowertoDrive();
+            LowertoDisc();
             GrabDisc();
             Raise();
             PivottoOutTray();
@@ -97,6 +106,8 @@ namespace BotServer
             (
             )
         {
+            Controller.SetPositionandWait(ServoChannels.Pivot, PivotInTray, MAX_PIVOT_MOVE_TIME);
+            Thread.Sleep(PIVOT_SETTLE_TIME);
         }
 
         /// <summary>
@@ -106,6 +117,8 @@ namespace BotServer
             (
             )
         {
+            Controller.SetPositionandWait(ServoChannels.Pivot, PivotDrive, MAX_PIVOT_MOVE_TIME);
+            Thread.Sleep(PIVOT_SETTLE_TIME);
         }
 
         /// <summary>
@@ -115,6 +128,8 @@ namespace BotServer
             (
             )
         {
+            Controller.SetPositionandWait(ServoChannels.Pivot, PivotOutTray, MAX_PIVOT_MOVE_TIME);
+            Thread.Sleep(PIVOT_SETTLE_TIME);
         }
 
         /// <summary>
@@ -124,6 +139,9 @@ namespace BotServer
             (
             )
         {
+            Controller.SetPosition(ServoChannels.YAxis, YAxisUp);
+            while (!Controller.SwitchPressed(ServoChannels.RaisedSwitch)) ;
+            Controller.SetPosition(ServoChannels.YAxis, YAxisStop);
         }
 
         /// <summary>
@@ -133,6 +151,12 @@ namespace BotServer
             (
             )
         {
+            // fixme - remove
+            LowertoDrive();
+
+            /*Controller.SetPosition(ServoChannels.YAxis, YAxisDown);
+            while (!Controller.SwitchPressed(ServoChannels.DiscSwitch)) ;
+            Controller.SetPosition(ServoChannels.YAxis, YAxisStop);*/
         }
 
         /// <summary>
@@ -142,6 +166,9 @@ namespace BotServer
             (
             )
         {
+            Controller.SetPosition(ServoChannels.YAxis, YAxisDown);
+            Thread.Sleep(YAXIS_LOWER_TO_DRIVE_TIME);
+            Controller.SetPosition(ServoChannels.YAxis, YAxisStop);
         }
 
         /// <summary>
@@ -151,6 +178,7 @@ namespace BotServer
             (
             )
         {
+            // no lowering - release disc from maximum height
         }
 
         /// <summary>
@@ -160,8 +188,7 @@ namespace BotServer
             (
             )
         {
-            Controller.SetPosition((byte)ServoChannels.Toolhead, ToolheadGrabPosition);
-            Thread.Sleep(ToolheadActuationTime);
+            Controller.SetPositionandWait(ServoChannels.Toolhead, ToolheadGrab, MAX_TOOLHEAD_MOVE_TIME);
         }
 
         /// <summary>
@@ -171,9 +198,8 @@ namespace BotServer
             (
             )
         {
-            Controller.SetPosition((byte)ServoChannels.Toolhead, ToolheadReleasePosition);
-            Thread.Sleep(ToolheadActuationTime);
-            Controller.Off((byte)ServoChannels.Toolhead);
+            Controller.SetPositionandWait(ServoChannels.Toolhead, ToolheadRelease, MAX_TOOLHEAD_MOVE_TIME);
+            Controller.Off(ServoChannels.Toolhead);
         }
 
         /// <summary>
@@ -185,8 +211,8 @@ namespace BotServer
             NameValueCollection Settings
             )
         {
-            ToolheadGrabPosition = int.Parse(Settings["toolheadgrab"]);
-            ToolheadReleasePosition = int.Parse(Settings["toolheadrelease"]);
+            ToolheadGrab = int.Parse(Settings["toolheadgrab"]);
+            ToolheadRelease = int.Parse(Settings["toolheadrelease"]);
         }
     }
 }
