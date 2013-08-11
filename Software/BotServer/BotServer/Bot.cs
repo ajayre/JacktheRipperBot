@@ -73,18 +73,11 @@ namespace BotServer
             (
             )
         {
-            PivottoInTray();
-            LowertoDisc();
-            GrabDisc();
-            Raise();
-            PivottoDrive();
-            LowertoDrive();
-            Raise();
-            PivottoOutTray();
-            LowertoOutTray();
-            ReleaseDisc();
-            Raise();
-            PivottoDrive();
+            for (int i = 0; i < 5; i++)
+            {
+                LoadDisc();
+                UnloadDisc();
+            }
         }
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace BotServer
         // maximum time for pivot to complete a move
         public int MaxPivotMoveTime = 15000;
         // time it takes to lower disc to drive tray
-        public int YAxisLowertoDriveTime = 2000;
+        public int YAxisLowertoDriveTime = 5000;
         // time it takes to lower to out tray drop point
         public int YAxisLowertoOutTrayDropTime = 2000;
         // time to allow pivot motion to settle

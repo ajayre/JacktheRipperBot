@@ -11,7 +11,7 @@
   <PivotOutTray>1783</PivotOutTray>
   <MaxToolheadMoveTime>5000</MaxToolheadMoveTime>
   <MaxPivotMoveTime>15000</MaxPivotMoveTime>
-  <YAxisLowertoDriveTime>2000</YAxisLowertoDriveTime>
+  <YAxisLowertoDriveTime>5000</YAxisLowertoDriveTime>
   <YAxisLowertoOutTrayDropTime>2000</YAxisLowertoOutTrayDropTime>
   <PivotSettleTime>1000</PivotSettleTime>
   <PivotSpeed>8</PivotSpeed>
