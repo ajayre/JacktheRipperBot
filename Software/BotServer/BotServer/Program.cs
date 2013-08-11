@@ -42,7 +42,10 @@ namespace BotServer
 
             // create bot
             Bot = new Bot(Config);
-            
+
+            // go to home position
+            Bot.Home();
+
             // start listening for HTTP requests
             Server = new WebServer(ServerResponse, String.Format("http://+:{0}/botapi/", Port));
             Server.Run();
@@ -81,6 +84,10 @@ namespace BotServer
 
                     case "test":
                         Bot.Test();
+                        break;
+
+                    case "raise":
+                        Bot.Raise();
                         break;
 
                     case "home":

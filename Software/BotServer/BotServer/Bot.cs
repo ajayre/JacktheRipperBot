@@ -25,8 +25,17 @@ namespace BotServer
             Controller.Connect(Config.MaestroPort);
 
             // configure channels
+            Controller.Off(ServoChannels.Pivot);
             Controller.SetSpeed(ServoChannels.Pivot, Config.PivotSpeed);
             Controller.SetAcceleration(ServoChannels.Pivot, Config.PivotAcceleration);
+
+            Controller.Off(ServoChannels.YAxis);
+            Controller.SetSpeed(ServoChannels.YAxis, 0);
+            Controller.SetAcceleration(ServoChannels.YAxis, 0);
+
+            Controller.Off(ServoChannels.Toolhead);
+            Controller.SetSpeed(ServoChannels.Toolhead, 0);
+            Controller.SetAcceleration(ServoChannels.Toolhead, 0);
         }
 
         /// <summary>
@@ -37,6 +46,7 @@ namespace BotServer
             (
             )
         {
+            ReleaseDisc();
             LowertoDisc();
             GrabDisc();
             Raise();
@@ -55,6 +65,7 @@ namespace BotServer
             (
             )
         {
+            ReleaseDisc();
             PivottoInTray();
             LowertoDisc();
             GrabDisc();
@@ -128,7 +139,7 @@ namespace BotServer
         /// <summary>
         /// Lifts the Y axis to maximum height
         /// </summary>
-        private void Raise
+        public void Raise
             (
             )
         {

@@ -12,13 +12,13 @@ namespace BotServer
     {
         // servo positions in microseconds
         // get these values from the Maestro Control Center application
-        public int ToolheadGrab = 1225;
-        public int ToolheadRelease = 1435;
-        public int YAxisDown = 962;
+        public int ToolheadGrab = 1210;
+        public int ToolheadRelease = 1562;
+        public int YAxisDown = 968;
         public int YAxisStop = 950;
         public int YAxisUp = 935;
         public int PivotInTray = 2527;
-        public int PivotDrive = 2158;
+        public int PivotDrive = 2150;
         public int PivotOutTray = 1783;
 
         // maximum time for toolhead to complete a move, in milliseconds
@@ -26,7 +26,7 @@ namespace BotServer
         // maximum time for pivot to complete a move
         public int MaxPivotMoveTime = 15000;
         // time it takes to lower disc to drive tray
-        public int YAxisLowertoDriveTime = 5000;
+        public int YAxisLowertoDriveTime = 3400;
         // time it takes to lower to out tray drop point
         public int YAxisLowertoOutTrayDropTime = 2000;
         // time to allow pivot motion to settle
