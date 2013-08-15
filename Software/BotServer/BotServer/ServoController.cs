@@ -97,6 +97,8 @@ namespace BotServer
             Command[5] = (byte)((Pos >> 7) & 0x7F);
 
             Port.Write(Command, 0, 6);
+
+            Console.WriteLine("Set position to " + Position.ToString());
         }
 
         /// <summary>

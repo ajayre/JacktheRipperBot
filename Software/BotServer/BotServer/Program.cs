@@ -82,12 +82,21 @@ namespace BotServer
                         Bot.UnloadDisc();
                         break;
 
+                    // all commands below are for testing
                     case "test":
                         Bot.Test();
                         break;
 
                     case "raise":
                         Bot.Raise();
+                        break;
+
+                    case "grab":
+                        Bot.GrabDisc();
+                        break;
+
+                    case "release":
+                        Bot.ReleaseDisc();
                         break;
 
                     case "home":

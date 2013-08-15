@@ -35,7 +35,7 @@ namespace BotServer
 
             Controller.Off(ServoChannels.Toolhead);
             Controller.SetSpeed(ServoChannels.Toolhead, 0);
-            Controller.SetAcceleration(ServoChannels.Toolhead, 0);
+            Controller.SetAcceleration(ServoChannels.Toolhead, Config.ToolheadAcceleration);
         }
 
         /// <summary>
@@ -187,17 +187,21 @@ namespace BotServer
         /// <summary>
         /// Grabs the disc positioned at the toolhead
         /// </summary>
-        private void GrabDisc
+        public void GrabDisc
             (
             )
         {
-            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadGrab, Config.MaxToolheadMoveTime);
+            for (int Position = Config.ToolheadRelease; Position >= Config.ToolheadGrab; Position -= 10)
+            {
+                Controller.SetPositionandWait(ServoChannels.Toolhead, Position, Config.MaxToolheadMoveTime);
+                Thread.Sleep(Config.ToolheadSpeed);
+            }
         }
 
         /// <summary>
         /// Releases the disc currently being held
         /// </summary>
-        private void ReleaseDisc
+        public void ReleaseDisc
             (
             )
         {
