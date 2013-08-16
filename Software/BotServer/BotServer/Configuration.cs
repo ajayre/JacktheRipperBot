@@ -12,8 +12,8 @@ namespace BotServer
     {
         // servo positions in microseconds
         // get these values from the Maestro Control Center application
-        public int ToolheadGrab = 1400;
-        public int ToolheadRelease = 1616;
+        public int ToolheadUp = 1600;
+        public int ToolheadDown = 700;
         public int YAxisDown = 968;
         public int YAxisStop = 950;
         public int YAxisUp = 935;
@@ -37,8 +37,8 @@ namespace BotServer
         public int PivotAcceleration = 1;
 
         // toolhead speed and acceleration
-        public int ToolheadSpeed = 20;
-        public int ToolheadAcceleration = 1;
+        public int ToolheadSpeed = 0;
+        public int ToolheadAcceleration = 0;
 
         public string MaestroPort = @"/dev/ttyACM0";
 
@@ -61,8 +61,8 @@ namespace BotServer
             {
                 XElement Config = XElement.Load(Reader);
 
-                ToolheadGrab = (int)Config.Element("ToolheadGrab");
-                ToolheadRelease = (int)Config.Element("ToolheadRelease");
+                ToolheadUp = (int)Config.Element("ToolheadUp");
+                ToolheadDown = (int)Config.Element("ToolheadDown");
                 YAxisDown = (int)Config.Element("YAxisDown");
                 YAxisStop = (int)Config.Element("YAxisStop");
                 YAxisUp = (int)Config.Element("YAxisUp");

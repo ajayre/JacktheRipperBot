@@ -34,7 +34,7 @@ namespace BotServer
             Controller.SetAcceleration(ServoChannels.YAxis, 0);
 
             Controller.Off(ServoChannels.Toolhead);
-            Controller.SetSpeed(ServoChannels.Toolhead, 0);
+            Controller.SetSpeed(ServoChannels.Toolhead, Config.ToolheadSpeed);
             Controller.SetAcceleration(ServoChannels.Toolhead, Config.ToolheadAcceleration);
         }
 
@@ -191,11 +191,7 @@ namespace BotServer
             (
             )
         {
-            for (int Position = Config.ToolheadRelease; Position >= Config.ToolheadGrab; Position -= 10)
-            {
-                Controller.SetPositionandWait(ServoChannels.Toolhead, Position, Config.MaxToolheadMoveTime);
-                Thread.Sleep(Config.ToolheadSpeed);
-            }
+            // nothing to do
         }
 
         /// <summary>
@@ -205,8 +201,9 @@ namespace BotServer
             (
             )
         {
-            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadRelease, Config.MaxToolheadMoveTime);
-            Controller.Off(ServoChannels.Toolhead);
+            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadDown, Config.MaxToolheadMoveTime);
+            Thread.Sleep(1000);
+            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadUp, Config.MaxToolheadMoveTime);
         }
     }
 }

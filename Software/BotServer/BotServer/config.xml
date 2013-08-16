@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- example configuration file -->
 <Config>
-  <ToolheadGrab>1400</ToolheadGrab>
-  <ToolheadRelease>1616</ToolheadRelease>
+  <ToolheadUp>1600</ToolheadUp>
+  <ToolheadDown>700</ToolheadDown>
   <YAxisDown>968</YAxisDown>
   <YAxisStop>950</YAxisStop>
   <YAxisUp>935</YAxisUp>
@@ -16,7 +16,7 @@
   <PivotSettleTime>1000</PivotSettleTime>
   <PivotSpeed>8</PivotSpeed>
   <PivotAcceleration>1</PivotAcceleration>
-  <ToolheadSpeed>20</ToolheadSpeed>
-  <ToolheadAcceleration>1</ToolheadAcceleration>
+  <ToolheadSpeed>0</ToolheadSpeed>
+  <ToolheadAcceleration>0</ToolheadAcceleration>
   <MaestroPort>/dev/ttyACM0</MaestroPort>
 </Config>
