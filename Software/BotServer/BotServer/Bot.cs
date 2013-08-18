@@ -143,6 +143,7 @@ namespace BotServer
             (
             )
         {
+
             Controller.SetPosition(ServoChannels.YAxis, Config.YAxisUp);
             while (!Controller.SwitchPressed(ServoChannels.RaisedSwitch)) ;
             Controller.SetPosition(ServoChannels.YAxis, Config.YAxisStop);
@@ -191,7 +192,7 @@ namespace BotServer
             (
             )
         {
-            // nothing to do
+            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadGrab, Config.MaxToolheadMoveTime);
         }
 
         /// <summary>
@@ -201,9 +202,7 @@ namespace BotServer
             (
             )
         {
-            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadDown, Config.MaxToolheadMoveTime);
-            Thread.Sleep(1000);
-            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadUp, Config.MaxToolheadMoveTime);
+            Controller.SetPositionandWait(ServoChannels.Toolhead, Config.ToolheadRelease, Config.MaxToolheadMoveTime);
         }
     }
 }

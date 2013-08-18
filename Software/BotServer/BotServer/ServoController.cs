@@ -97,8 +97,6 @@ namespace BotServer
             Command[5] = (byte)((Pos >> 7) & 0x7F);
 
             Port.Write(Command, 0, 6);
-
-            Console.WriteLine("Set position to " + Position.ToString());
         }
 
         /// <summary>
@@ -196,17 +194,34 @@ namespace BotServer
 
             SetPosition(Channel, Position);
 
-            // wait for motion to start
-            Thread.Sleep(100);
-
+            // start timing
             Watch.Start();
-            while (ServosMoving())
+
+            //Console.WriteLine(String.Format("{0} {1} - waiting for motion to start", Watch.ElapsedMilliseconds, Channel));
+
+            /*// wait for motion to start
+            while (!ServosMoving())
             {
                 if (Watch.ElapsedMilliseconds > Timeout)
                 {
+                    return;
+                    //throw new Exception(String.Format("Servo {0} failed to start moving in {2} ms", Channel, Position, Timeout));
+                }
+            }*/
+
+            //Console.WriteLine(String.Format("{0} {1} - waiting for motion to stop", Watch.ElapsedMilliseconds, Channel));
+            //while (ServosMoving())
+            while (GetPosition(Channel) != Position)
+            {
+                if (Watch.ElapsedMilliseconds > Timeout)
+                {
+                    if (Math.Abs(GetPosition(Channel) - Position) < 10) return;
+
+                    //Console.WriteLine(String.Format("Servo {0} failed to reach position {1} in {2} ms - now at {3}", Channel, Position, Timeout, GetPosition(Channel)));
                     throw new Exception(String.Format("Servo {0} failed to reach position {1} in {2} ms - now at {3}", Channel, Position, Timeout, GetPosition(Channel)));
                 }
             }
+            //Console.WriteLine(String.Format("{0} {1} - motion stopped", Watch.ElapsedMilliseconds, Channel));
         }
 
         /// <summary>
