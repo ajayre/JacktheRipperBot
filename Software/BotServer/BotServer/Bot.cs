@@ -77,14 +77,13 @@ namespace BotServer
         }
 
         /// <summary>
-        /// Moves a disc from in tray to out tray without putting it
-        /// into the drive
+        /// Moves discs from in tray to out tray
         /// </summary>
         public void Test
             (
             )
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 24; i++)
             {
                 LoadDisc();
                 UnloadDisc();

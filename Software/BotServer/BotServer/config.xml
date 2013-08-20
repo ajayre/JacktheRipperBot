@@ -2,20 +2,20 @@
 <!-- example configuration file -->
 <Config>
   <ToolheadGrab>1160</ToolheadGrab>
-  <ToolheadRelease>1830</ToolheadRelease>
+  <ToolheadRelease>2000</ToolheadRelease>
   <YAxisDown>968</YAxisDown>
   <YAxisStop>950</YAxisStop>
   <YAxisUp>935</YAxisUp>
   <PivotInTray>2527</PivotInTray>
-  <PivotDrive>2150</PivotDrive>
+  <PivotDrive>2145</PivotDrive>
   <PivotOutTray>1783</PivotOutTray>
   <MaxToolheadMoveTime>5000</MaxToolheadMoveTime>
   <MaxPivotMoveTime>15000</MaxPivotMoveTime>
-  <YAxisLowertoDriveTime>4600</YAxisLowertoDriveTime>
+  <YAxisLowertoDriveTime>4900</YAxisLowertoDriveTime>
   <YAxisLowertoOutTrayDropTime>3000</YAxisLowertoOutTrayDropTime>
   <PivotSettleTime>1000</PivotSettleTime>
   <PivotSpeed>8</PivotSpeed>
-  <PivotAcceleration>1</PivotAcceleration>
+  <PivotAcceleration>0</PivotAcceleration>
   <ToolheadSpeed>20</ToolheadSpeed>
   <ToolheadAcceleration>1</ToolheadAcceleration>
   <MaestroPort>/dev/ttyACM0</MaestroPort>
