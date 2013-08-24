@@ -13,6 +13,8 @@ namespace JacktheRipperBot
         // optional suffix to application version
         public const String VERSIONSUFFIX = "";
 
+        public static Log Log = new Log();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,6 +27,8 @@ namespace JacktheRipperBot
 
             // save user settings
             Properties.Settings.Default.Save();
+
+            Log.Close();
         }
 
         /// <summary>

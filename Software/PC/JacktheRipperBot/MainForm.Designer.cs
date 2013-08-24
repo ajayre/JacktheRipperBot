@@ -44,12 +44,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.IPAddressInput = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ExecuteCommandButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.CommandSelector = new System.Windows.Forms.ComboBox();
-            this.IPAddressInput = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -200,6 +200,22 @@
             this.tabPage1.Text = "Rip";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // IPAddressInput
+            // 
+            this.IPAddressInput.Location = new System.Drawing.Point(105, 59);
+            this.IPAddressInput.Name = "IPAddressInput";
+            this.IPAddressInput.Size = new System.Drawing.Size(124, 20);
+            this.IPAddressInput.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 62);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "IP Address:";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.ExecuteCommandButton);
@@ -246,22 +262,6 @@
             this.CommandSelector.Name = "CommandSelector";
             this.CommandSelector.Size = new System.Drawing.Size(121, 21);
             this.CommandSelector.TabIndex = 0;
-            // 
-            // IPAddressInput
-            // 
-            this.IPAddressInput.Location = new System.Drawing.Point(105, 59);
-            this.IPAddressInput.Name = "IPAddressInput";
-            this.IPAddressInput.Size = new System.Drawing.Size(124, 20);
-            this.IPAddressInput.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(38, 62);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "IP Address:";
             // 
             // MainForm
             // 

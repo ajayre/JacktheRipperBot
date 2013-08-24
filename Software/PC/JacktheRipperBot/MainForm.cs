@@ -19,11 +19,12 @@ namespace JacktheRipperBot
         private Bot Bot = new Bot();
         private bool StopRipping;
         private DateTime StartTime;
+        private DriveInfo CurrentDrive;
 
         // maximum number of times to attempt to close the tray and read a disc
         private int MaxCloseTrayAttempts = 3;
 
-        private enum Commands { OpenTray, CloseTray, LoadDisc, UnloadDisc, Rip };
+        private enum Commands { OpenTray, CloseTray, CloseTrayandWaitforDisc, LoadDisc, UnloadDisc, Rip };
 
         public MainForm()
         {
@@ -77,6 +78,9 @@ namespace JacktheRipperBot
             Busy = true;
             UpdateUI();
 
+            // get current drive
+            CurrentDrive = (DriveInfo)DriveSelector.SelectedItem;
+
             // start ripping thread
             StopRipping = false;
             StartTime = DateTime.Now;
@@ -97,14 +101,19 @@ namespace JacktheRipperBot
             {
                 int NumberofDVDs = int.Parse(NumberofDVDsInput.Text);
 
-                ExecuteCommand(Commands.OpenTray);
+                UpdateProgress(String.Format("Opening tray for {0}...", CurrentDrive.Name));
+                Program.Log.OutputTimestampLine(String.Format("Opening tray for {0}", CurrentDrive.Name));
+
+                ExecuteCommand(Commands.OpenTray, CurrentDrive);
+
+                UpdateProgress("Loading disc");
 
                 // process each DVD
                 for (int CurrentDVD = 0; CurrentDVD < NumberofDVDs; CurrentDVD++)
                 {
                     if (StopRipping) break;
 
-                    ExecuteCommand(Commands.LoadDisc);
+                    ExecuteCommand(Commands.LoadDisc, CurrentDrive);
 
                     // keep opening and closing tray until disc is successfully read or
                     // we have reached the maximum number of attempts
@@ -113,11 +122,13 @@ namespace JacktheRipperBot
                     {
                         if (StopRipping) break;
 
-                        if (!ExecuteCommand(Commands.CloseTray))
+                        if (!ExecuteCommand(Commands.CloseTrayandWaitforDisc, CurrentDrive))
                         {
-                            ExecuteCommand(Commands.OpenTray);
+                            Program.Log.OutputTimestampLine("Failed to wait for disc");
+                            ExecuteCommand(Commands.OpenTray, CurrentDrive);
                             if (++Attempt == MaxCloseTrayAttempts)
                             {
+                                Program.Log.OutputTimestampLine("Can't load disc, giving up...");
                                 StopRipping = true;
                                 break;
                             }
@@ -132,30 +143,37 @@ namespace JacktheRipperBot
 
                     if (StopRipping) break;
 
-                    ExecuteCommand(Commands.Rip);
+                    ExecuteCommand(Commands.Rip, CurrentDrive);
 
                     if (StopRipping) break;
 
-                    ExecuteCommand(Commands.OpenTray);
+                    ExecuteCommand(Commands.OpenTray, CurrentDrive);
 
                     if (StopRipping) break;
 
-                    ExecuteCommand(Commands.UnloadDisc);
+                    ExecuteCommand(Commands.UnloadDisc, CurrentDrive);
 
                     if (StopRipping) break;
 
+                    Program.Log.OutputTimestampLine(String.Format("Completed disc {0} of {1}", CurrentDVD + 1, NumberofDVDs));
                     UpdateProgress(CurrentDVD + 1, NumberofDVDs);
                 }
 
-                ExecuteCommand(Commands.CloseTray);
+                UpdateProgress(String.Format("Closing tray for {0}...", CurrentDrive.Name));
+
+                ExecuteCommand(Commands.CloseTray, CurrentDrive);
             }
             catch (Exception Exc)
             {
+                Program.Log.OutputTimestampLine("ERROR: " + Exc.Message);
                 MessageBox.Show(Exc.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             finally
             {
+                Program.Log.OutputTimestampLine("Ripping stopped");
+
                 Busy = false;
+                UpdateProgress("");
                 UpdateUI();
             }
         }
@@ -172,7 +190,10 @@ namespace JacktheRipperBot
             // terminate thread
             StopRipping = true;
 
+            Program.Log.OutputTimestampLine("Ripping stopped");
+
             Busy = false;
+            UpdateProgress("");
             UpdateUI();
         }
 
@@ -220,6 +241,24 @@ namespace JacktheRipperBot
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop();
+        }
+
+        /// <summary>
+        /// Updates the progress message text
+        /// </summary>
+        /// <param name="Message">Message to display</param>
+        private void UpdateProgress
+            (
+            string Message
+            )
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<string>(UpdateProgress), Message);
+                return;
+            }
+
+            ProgressText.Text = Message;
         }
 
         /// <summary>
@@ -280,31 +319,36 @@ namespace JacktheRipperBot
         /// Executes a command
         /// </summary>
         /// <param name="Command">Command to execute</param>
+        /// <param name="Drive">Drive to execute command on</param>
         /// <returns>true for success, false for failure</returns>
         private bool ExecuteCommand
             (
-            Commands Command
+            Commands Command,
+            DriveInfo DriveInfo
             )
         {
-            if (InvokeRequired)
-            {
-                return (bool)Invoke(new Func<Commands, bool>(ExecuteCommand), Command);
-            }
-
             switch (Command)
             {
                 case Commands.OpenTray:
-                    Drive.OpenTray(((DriveInfo)DriveSelector.SelectedItem));
+                    Program.Log.OutputTimestampLine(String.Format("Opening tray on {0}", DriveInfo.Name));
+                    Drive.OpenTray(DriveInfo);
                     break;
 
                 case Commands.CloseTray:
-                    return Drive.CloseTray(((DriveInfo)DriveSelector.SelectedItem));
+                    Program.Log.OutputTimestampLine(String.Format("Closing tray on {0}", DriveInfo.Name));
+                    return Drive.CloseTray(DriveInfo, false);
+
+                case Commands.CloseTrayandWaitforDisc:
+                    Program.Log.OutputTimestampLine(String.Format("Closing tray and waiting for disc on {0}", DriveInfo.Name));
+                    return Drive.CloseTray(DriveInfo, true);
 
                 case Commands.LoadDisc:
+                    Program.Log.OutputTimestampLine("Loading disc");
                     Bot.LoadDisc(IPAddressInput.Text);
                     break;
 
                 case Commands.UnloadDisc:
+                    Program.Log.OutputTimestampLine("Unloading disc");
                     Bot.UnloadDisc(IPAddressInput.Text);
                     break;
 
@@ -312,7 +356,7 @@ namespace JacktheRipperBot
                     string Name;
                     try
                     {
-                        Name = ((DriveInfo)DriveSelector.SelectedItem).VolumeLabel;
+                        Name = DriveInfo.VolumeLabel;
                     }
                     catch (IOException)
                     {
@@ -321,7 +365,8 @@ namespace JacktheRipperBot
 
                     Text = Application.ProductName + " - " + Name;
 
-                    Ripper.Rip(RipCommandInput.Text, ((DriveInfo)DriveSelector.SelectedItem).Name, Name);
+                    Program.Log.OutputTimestampLine(String.Format("Ripping: Cmd={0} Letter={1} Name={2}", RipCommandInput.Text, DriveInfo.Name, Name));
+                    Ripper.Rip(RipCommandInput.Text, DriveInfo.Name, Name);
 
                     Text = Application.ProductName;
 
@@ -339,26 +384,33 @@ namespace JacktheRipperBot
         /// <param name="e"></param>
         private void ExecuteCommandButton_Click(object sender, EventArgs e)
         {
+            // get current drive
+            CurrentDrive = (DriveInfo)DriveSelector.SelectedItem;
+
             switch ((string)CommandSelector.SelectedItem)
             {
                 case "Open Tray":
-                    ExecuteCommand(Commands.OpenTray);
+                    UpdateProgress(String.Format("Opening tray for {0}...", CurrentDrive.Name));
+                    ExecuteCommand(Commands.OpenTray, CurrentDrive);
+                    UpdateProgress("");
                     break;
 
                 case "Close Tray":
-                    ExecuteCommand(Commands.CloseTray);
+                    UpdateProgress(String.Format("Closing tray for {0}...", CurrentDrive.Name));
+                    ExecuteCommand(Commands.CloseTray, CurrentDrive);
+                    UpdateProgress("");
                     break;
 
                 case "Load Disc":
-                    ExecuteCommand(Commands.LoadDisc);
+                    ExecuteCommand(Commands.LoadDisc, CurrentDrive);
                     break;
 
                 case "Unload Disc":
-                    ExecuteCommand(Commands.UnloadDisc);
+                    ExecuteCommand(Commands.UnloadDisc, CurrentDrive);
                     break;
 
                 case "Rip":
-                    ExecuteCommand(Commands.Rip);
+                    ExecuteCommand(Commands.Rip, CurrentDrive);
                     break;
             }
         }
