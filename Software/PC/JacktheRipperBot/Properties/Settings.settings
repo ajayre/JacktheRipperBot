@@ -11,5 +11,8 @@
     <Setting Name="IPAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.1.70</Value>
     </Setting>
+    <Setting Name="RipArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

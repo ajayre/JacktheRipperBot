@@ -40,6 +40,7 @@ namespace JacktheRipperBot
             // show initial settings
             NumberofDVDsInput.Text = Properties.Settings.Default.NumberofDVDs.ToString();
             RipCommandInput.Text = Properties.Settings.Default.RipCommand;
+            RipArgumentsInput.Text = Properties.Settings.Default.RipArguments;
             IPAddressInput.Text = Properties.Settings.Default.IPAddress;
 
             BuildDriveList();
@@ -214,6 +215,7 @@ namespace JacktheRipperBot
             NumberofDVDsInput.Enabled = !Busy;
             DriveSelector.Enabled = !Busy;
             RipCommandInput.Enabled = !Busy;
+            RipArgumentsInput.Enabled = !Busy;
             CommandSelector.Enabled = !Busy;
             ExecuteCommandButton.Enabled = !Busy;
             IPAddressInput.Enabled = !Busy;
@@ -308,6 +310,7 @@ namespace JacktheRipperBot
             {
                 Properties.Settings.Default.NumberofDVDs = int.Parse(NumberofDVDsInput.Text);
                 Properties.Settings.Default.RipCommand = RipCommandInput.Text;
+                Properties.Settings.Default.RipArguments = RipArgumentsInput.Text;
                 Properties.Settings.Default.IPAddress = IPAddressInput.Text;
             }
             catch (FormatException)
@@ -367,8 +370,7 @@ namespace JacktheRipperBot
 
                     string Timestamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
 
-                    Program.Log.OutputTimestampLine(String.Format("Ripping: Cmd={0} Letter={1} Name={2}, Timestamp={3}", RipCommandInput.Text, DriveInfo.Name, Name, Timestamp));
-                    Ripper.Rip(RipCommandInput.Text, DriveInfo.Name, Name, Timestamp);
+                    Ripper.Rip(RipCommandInput.Text, RipArgumentsInput.Text, DriveInfo.Name, Name, Timestamp);
 
                     Text = Application.ProductName;
 

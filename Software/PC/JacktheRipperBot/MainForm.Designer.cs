@@ -50,6 +50,8 @@
             this.ExecuteCommandButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.CommandSelector = new System.Windows.Forms.ComboBox();
+            this.RipArgumentsInput = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -59,7 +61,7 @@
             // StartButton
             // 
             this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartButton.Location = new System.Drawing.Point(694, 197);
+            this.StartButton.Location = new System.Drawing.Point(694, 215);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 0;
@@ -70,7 +72,7 @@
             // StopButton
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.StopButton.Location = new System.Drawing.Point(613, 197);
+            this.StopButton.Location = new System.Drawing.Point(613, 215);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 1;
@@ -84,7 +86,7 @@
             this.ProgressBar,
             this.ProgressText,
             this.ProgressTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 223);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 241);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(781, 22);
             this.statusStrip1.TabIndex = 2;
@@ -112,7 +114,7 @@
             this.NumberofDVDsInput.Location = new System.Drawing.Point(105, 6);
             this.NumberofDVDsInput.Name = "NumberofDVDsInput";
             this.NumberofDVDsInput.Size = new System.Drawing.Size(65, 20);
-            this.NumberofDVDsInput.TabIndex = 3;
+            this.NumberofDVDsInput.TabIndex = 0;
             // 
             // label1
             // 
@@ -130,7 +132,7 @@
             this.DriveSelector.Location = new System.Drawing.Point(105, 32);
             this.DriveSelector.Name = "DriveSelector";
             this.DriveSelector.Size = new System.Drawing.Size(65, 21);
-            this.DriveSelector.TabIndex = 5;
+            this.DriveSelector.TabIndex = 1;
             // 
             // label2
             // 
@@ -148,7 +150,7 @@
             this.RipCommandInput.Location = new System.Drawing.Point(105, 85);
             this.RipCommandInput.Name = "RipCommandInput";
             this.RipCommandInput.Size = new System.Drawing.Size(638, 20);
-            this.RipCommandInput.TabIndex = 8;
+            this.RipCommandInput.TabIndex = 3;
             // 
             // label3
             // 
@@ -162,7 +164,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 108);
+            this.label4.Location = new System.Drawing.Point(102, 134);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(405, 13);
             this.label4.TabIndex = 10;
@@ -179,11 +181,13 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(757, 179);
+            this.tabControl1.Size = new System.Drawing.Size(757, 197);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.RipArgumentsInput);
             this.tabPage1.Controls.Add(this.IPAddressInput);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.NumberofDVDsInput);
@@ -196,7 +200,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(749, 153);
+            this.tabPage1.Size = new System.Drawing.Size(749, 171);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Rip";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -206,7 +210,7 @@
             this.IPAddressInput.Location = new System.Drawing.Point(105, 59);
             this.IPAddressInput.Name = "IPAddressInput";
             this.IPAddressInput.Size = new System.Drawing.Size(124, 20);
-            this.IPAddressInput.TabIndex = 11;
+            this.IPAddressInput.TabIndex = 2;
             // 
             // label6
             // 
@@ -264,11 +268,29 @@
             this.CommandSelector.Size = new System.Drawing.Size(121, 21);
             this.CommandSelector.TabIndex = 0;
             // 
+            // RipArgumentsInput
+            // 
+            this.RipArgumentsInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RipArgumentsInput.Location = new System.Drawing.Point(105, 111);
+            this.RipArgumentsInput.Name = "RipArgumentsInput";
+            this.RipArgumentsInput.Size = new System.Drawing.Size(638, 20);
+            this.RipArgumentsInput.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(20, 114);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Rip Arguments:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 245);
+            this.ClientSize = new System.Drawing.Size(781, 263);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.StopButton);
@@ -313,6 +335,8 @@
         private System.Windows.Forms.ToolStripStatusLabel ProgressTime;
         private System.Windows.Forms.TextBox IPAddressInput;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox RipArgumentsInput;
     }
 }
 

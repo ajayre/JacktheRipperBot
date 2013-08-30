@@ -58,5 +58,17 @@ namespace JacktheRipperBot.Properties {
                 this["IPAddress"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RipArguments {
+            get {
+                return ((string)(this["RipArguments"]));
+            }
+            set {
+                this["RipArguments"] = value;
+            }
+        }
     }
 }
