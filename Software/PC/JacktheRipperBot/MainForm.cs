@@ -365,8 +365,10 @@ namespace JacktheRipperBot
 
                     Text = Application.ProductName + " - " + Name;
 
-                    Program.Log.OutputTimestampLine(String.Format("Ripping: Cmd={0} Letter={1} Name={2}", RipCommandInput.Text, DriveInfo.Name, Name));
-                    Ripper.Rip(RipCommandInput.Text, DriveInfo.Name, Name);
+                    string Timestamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+
+                    Program.Log.OutputTimestampLine(String.Format("Ripping: Cmd={0} Letter={1} Name={2}, Timestamp={3}", RipCommandInput.Text, DriveInfo.Name, Name, Timestamp));
+                    Ripper.Rip(RipCommandInput.Text, DriveInfo.Name, Name, Timestamp);
 
                     Text = Application.ProductName;
 

@@ -164,9 +164,10 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(102, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(279, 13);
+            this.label4.Size = new System.Drawing.Size(405, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "(Use {Drive} for the drive letter, {Name} for the disc name)";
+            this.label4.Text = "(Use {Drive} for the drive letter, {Name} for the disc name, {Timestamp} for date" +
+                "-time)";
             // 
             // tabControl1
             // 
