@@ -18,11 +18,15 @@ POLOLU MAESTRO
 TROUBLESHOOTING
 ---------------
 
-1. Pivot servo position varies/is not repeatable
+1. Pivot servo position varies/is not repeatable/slow
 
   - loosen the screws holding the servo and move it back slightly so the gears are still meshing but there is no sideways pressure on the servo shaft.
 
   - make sure the pivot servo is not near the limit of it's range at any point. When near the limit it will attempt continuous rotation and will lose it's position.
+
+  - check the hub retainer is not touching the lower bearing.
+
+  - move the gear housing away from the servo and make sure it rotates freely.
 
 
 2. Disc snags on sides of in tray when being raised
@@ -59,7 +63,7 @@ TROUBLESHOOTING
 
 6. Y axis is not vertical
 
-  - make sure the hub retainer is pressed up against the lower bearing.
+  - make sure the hub retainer is close to, but not touching, the lower bearing.
 
   - losing the nuts holding the gear housing to the threaded rod and re-tighten while pressing down on the rear of the gear housing.
 
