@@ -13,3 +13,61 @@ POLOLU MAESTRO
 
 6. Under the Status tab enable the channels and determine the minimum and maximum values for motion for each of the servos.
 
+
+
+TROUBLESHOOTING
+---------------
+
+1. Pivot servo position varies/is not repeatable
+
+  - loosen the screws holding the servo and move it back slightly so the gears are still meshing but there is no sideways pressure on the servo shaft.
+
+  - make sure the pivot servo is not near the limit of it's range at any point. When near the limit it will attempt continuous rotation and will lose it's position.
+
+
+2. Disc snags on sides of in tray when being raised
+
+  - rotate the in tray outwards slightly and update the in tray position in config.xml. This will move the center of the in tray slightly further from the center of the pivot.
+
+  - make sure y axis is vertical (see item 6).
+
+
+3. Disc snags on sides of out tray when being dropped
+
+  - rotate the out tray outwards slightly and update the out tray position in config.xml. This will move the center of the out tray slightly further from the center of the pivot.
+
+  - make sure y axis is vertical (see item 6).
+
+
+4. Disc falls off grabber
+
+  - make sure both sides of the grabber are vertical.
+
+  - raise the toolhead microswitch so that more of the grabber is lowered into the hole in the center of the disc.
+
+  - make sure that the y axis is exactly horizontal.
+
+
+5. Two discs are picked up
+
+  - make sure that the y axis is exactly horizontal.
+
+  - check that the Y axis is vertical (see item 6).
+
+  - make sure that both sides of the grabber are vertical.
+
+
+6. Y axis is not vertical
+
+  - make sure the hub retainer is pressed up against the lower bearing.
+
+  - losing the nuts holding the gear housing to the threaded rod and re-tighten while pressing down on the rear of the gear housing.
+
+  - check the y axis is securely attached to the threaded rod.
+
+
+7. Disc falls off grabber when being picked up from drive tray
+
+  - adjust the two M8 nuts on the threaded rod at the hub to shorten/lengthen the arm from the pivot to y axis. Make sure the grabber is exactly over the center of the disc.
+
+  - tweak the drive tray position in config.xml
