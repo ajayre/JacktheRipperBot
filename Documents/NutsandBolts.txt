@@ -1,0 +1,60 @@
+Hub retainer
+M3x16 - 2
+M3 nuts - 2
+
+Frame to DVD drive
+M3x12 - 4
+
+Frame to trays
+M3x18 - 2
+M3 nuts - 2
+
+Electronics caddy to frame
+M3x14 - 2
+M3 nuts - 2
+
+RPi to caddy
+M3x14 - 2
+M3 nuts - 2
+
+Maestro to caddy
+M2x14 - 2
+M2 nuts - 2
+
+Servo to core/holder
+M3x14 - 4
+M3 nuts - 4
+M3 washers - 4
+
+Servo to yaxis
+M3x14 - 4
+M3 nuts - 4
+M3 washers - 4
+
+Microswitch to yaxis
+M2x14 - 2
+M2 nuts - 2
+
+Yaxis to toolhead
+M3x14 - 2
+M3 nuts - 2
+
+Toolhead guide
+M2x10 - 1
+M2 nuts - 1
+
+Moving gripper to rack
+M2x10 - 1
+M2 nuts - 1
+
+Fixed gripper to frame
+M2x10 - 1
+M2 nuts - 1
+
+Servo to frame
+M2x10 - 2
+M2 nuts - 2
+
+Microswitch to frame
+M2x10 - 2
+M2 nuts - 2

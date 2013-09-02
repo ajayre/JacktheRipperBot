@@ -3,3 +3,10 @@
 2. Redesign main gear housing to use less plastic.
 
 3. Sugru veneers for grippers.
+
+4. Eliminate Raspberry Pi.
+  - merge BotServer into JacktheRipperBot.exe
+  - PC communicates directly with Pololu Maestro
+
+5. PC farm for faster ripping
+  - use Raspberry Pi to create image of discs which are then put into a queue. A farm of PCs work on encoding the queue.
