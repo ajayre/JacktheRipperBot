@@ -10,3 +10,5 @@
 
 5. PC farm for faster ripping
   - use Raspberry Pi to create image of discs which are then put into a queue. A farm of PCs work on encoding the queue.
+
+6. Cable management on top of support ring to keep wires away from gears.
