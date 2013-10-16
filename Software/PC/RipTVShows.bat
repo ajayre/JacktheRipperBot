@@ -5,6 +5,7 @@ rem Setup:
 rem Start Windows Powershell as Administrator
 rem enter: set-executionpolicy unrestricted
 rem close the powershell
+rem Repeat the above steps for Powershell (x86)
 rem Update the path name below
 
 mkdir %2
